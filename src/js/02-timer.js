@@ -71,7 +71,7 @@ const timer = {
 
     start () {
         setInterval( () => {
-            delta = selectedTime - new Date ();
+            const delta = selectedTime - new Date ();
             const timeComponents = convertMs(delta);
             updateTimerValues(timeComponents);
         }, 1000)
