@@ -11,6 +11,8 @@ const timerRefs = {
 };
 
 let selectedTime;
+let timerId = null;
+
 
 startBtn.disabled = true;
 
@@ -32,7 +34,7 @@ const options = {
                 function cb() {
                 },
               );
-        // window.alert("Please choose a date in the future");
+        
             return;
         };
         
@@ -65,15 +67,20 @@ function updateTimerValues({ days, hours, minutes, seconds }) {
 function onStartBtnClick() {
     timer.start()
     startBtn.disabled = true;
+    
     };
 
 const timer = {
 
     start () {
-        setInterval( () => {
-            const delta = selectedTime - new Date ();
+        timerId = setInterval( () => {
+            delta = selectedTime - new Date ();
             const timeComponents = convertMs(delta);
             updateTimerValues(timeComponents);
+            if(delta <= 999){
+                clearInterval(timerId)
+                Notiflix.Notify.success('Ta-daaa')
+            }
         }, 1000)
     }
     };
